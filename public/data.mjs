@@ -38,10 +38,10 @@ function grammar(language, rows) {
 
 export const CARDS = [
   ...vocabulary('fr', 'Greetings and politeness', [
-    ['bonjour', 'Hello / good morning (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Bonjour works through the day until evening.', 'Bonjour se usa durante el día, hasta la tarde-noche.', 'Bonjour, comment allez-vous ?', 'Hello, how are you?', 'Hola, ¿cómo está usted?'],
+    [['bonjour', 'salut'], 'Hello / good morning (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Bonjour works through the day until evening; salut is an informal hello.', 'Bonjour se usa durante el día, hasta la tarde-noche; salut es un saludo informal.', 'Bonjour, comment allez-vous ?', 'Hello, how are you?', 'Hola, ¿cómo está usted?'],
     ['bonsoir', 'Good evening (on arrival)', 'Buenas tardes-noches (al llegar)', 'Use bonsoir to greet someone in the evening.', 'Se usa bonsoir para saludar por la tarde-noche.', 'Bonsoir, Marie !', 'Good evening, Marie!', '¡Buenas noches, Marie!'],
     [['au revoir', 'salut', 'adieu'], 'Goodbye', 'Adiós', 'Au revoir is everyday; salut is informal; adieu is a stronger farewell.', 'Au revoir es habitual; salut es informal; adieu es una despedida más definitiva.', 'Au revoir, à demain !', 'Goodbye, see you tomorrow!', '¡Adiós, hasta mañana!'],
-    [["s'il vous plaît", "s'il te plaît"], 'Please', 'Por favor', 'Vous is polite or plural; te is informal singular.', 'Vous es de cortesía o plural; te es informal singular.', "Un café, s'il vous plaît.", 'A coffee, please.', 'Un café, por favor.'],
+    [["s'il vous plaît", "s'il te plaît", "s'il vous plait", "s'il te plait"], 'Please', 'Por favor', 'Vous is polite or plural; te is informal singular. The reformed spelling plait is also valid.', 'Vous es de cortesía o plural; te es informal singular. La grafía reformada plait también es válida.', "Un café, s'il vous plaît.", 'A coffee, please.', 'Un café, por favor.'],
     ['merci', 'Thank you', 'Gracias', 'Add beaucoup to say thank you very much.', 'Añade beaucoup para decir muchas gracias.', 'Merci pour votre aide.', 'Thank you for your help.', 'Gracias por su ayuda.'],
     [['pardon', 'excusez-moi', 'excuse-moi'], 'Excuse me / pardon me', 'Perdón / disculpa', 'Excusez-moi is polite or plural; excuse-moi is informal singular.', 'Excusez-moi es de cortesía o plural; excuse-moi es informal singular.', 'Pardon, où est la gare ?', 'Excuse me, where is the station?', 'Perdón, ¿dónde está la estación?'],
     ['oui', 'Yes', 'Sí', 'The final sound is like the English word we.', 'Se pronuncia aproximadamente uí.', 'Oui, je comprends.', 'Yes, I understand.', 'Sí, entiendo.'],
@@ -99,7 +99,7 @@ export const CARDS = [
   ]),
 
   ...vocabulary('de', 'Greetings and politeness', [
-    ['Guten Tag', 'Hello / good day (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Tag is a noun, so it starts with a capital letter.', 'Tag es un sustantivo y empieza con mayúscula.', 'Guten Tag, Frau Weber!', 'Hello, Ms Weber!', '¡Buenos días, señora Weber!'],
+    [['Guten Tag', 'Hallo', 'Guten Morgen'], 'Hello / good day (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Guten Tag is a daytime greeting; Guten Morgen is for the morning; Hallo is more casual.', 'Guten Tag es un saludo diurno; Guten Morgen se usa por la mañana; Hallo es más informal.', 'Guten Tag, Frau Weber!', 'Hello, Ms Weber!', '¡Buenos días, señora Weber!'],
     ['Guten Abend', 'Good evening (on arrival)', 'Buenas tardes-noches (al llegar)', 'Use Guten Abend to greet someone in the evening.', 'Usa Guten Abend para saludar por la tarde-noche.', 'Guten Abend, Herr Klein!', 'Good evening, Mr Klein!', '¡Buenas noches, señor Klein!'],
     [['auf Wiedersehen', 'tschüss', 'tschüs'], 'Goodbye', 'Adiós', 'Auf Wiedersehen is more formal; tschüss (also spelled tschüs) is informal.', 'Auf Wiedersehen es más formal; tschüss (también escrito tschüs) es informal.', 'Auf Wiedersehen, bis morgen!', 'Goodbye, see you tomorrow!', '¡Adiós, hasta mañana!'],
     ['bitte', 'Please', 'Por favor', 'Bitte also means you’re welcome, depending on context.', 'Bitte también significa de nada, según el contexto.', 'Einen Kaffee, bitte.', 'A coffee, please.', 'Un café, por favor.'],
@@ -160,7 +160,7 @@ export const CARDS = [
   ]),
 
   ...vocabulary('it', 'Greetings and politeness', [
-    [['buongiorno', 'buon giorno'], 'Hello / good morning (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Buongiorno is commonly written as one word; buon giorno is also correct.', 'Buongiorno suele escribirse en una palabra; buon giorno también es correcto.', 'Buongiorno, come sta?', 'Hello, how are you? (polite)', 'Buenos días, ¿cómo está usted?'],
+    [['buongiorno', 'buon giorno', 'ciao', 'salve'], 'Hello / good morning (daytime greeting)', 'Hola / buenos días (saludo durante el día)', 'Buongiorno (also buon giorno) is a daytime greeting; ciao is informal, salve neutral.', 'Buongiorno (también buon giorno) es un saludo diurno; ciao es informal y salve, neutro.', 'Buongiorno, come sta?', 'Hello, how are you? (polite)', 'Buenos días, ¿cómo está usted?'],
     [['buonasera', 'buona sera'], 'Good evening (on arrival)', 'Buenas tardes-noches (al llegar)', 'Buonasera (also buona sera) is a greeting; buonanotte is used before sleeping or on a late departure.', 'Buonasera (también buona sera) es un saludo; buonanotte se usa antes de dormir o al despedirse tarde.', 'Buonasera, Anna!', 'Good evening, Anna!', '¡Buenas noches, Anna!'],
     [['arrivederci', 'ciao', 'arrivederla', 'addio'], 'Goodbye', 'Adiós', 'Arrivederci is neutral; ciao informal; arrivederla formal; addio is a stronger farewell.', 'Arrivederci es neutro; ciao, informal; arrivederla, formal; addio es una despedida más definitiva.', 'Arrivederci, a domani!', 'Goodbye, see you tomorrow!', '¡Adiós, hasta mañana!'],
     [['per favore', 'per piacere', 'per cortesia'], 'Please', 'Por favor', 'Per favore works in both informal and polite requests.', 'Per favore sirve tanto en peticiones informales como de cortesía.', 'Un caffè, per favore.', 'A coffee, please.', 'Un café, por favor.'],

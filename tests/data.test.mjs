@@ -78,9 +78,10 @@ test('noun cards teach articles and German noun capitalization, while Portuguese
 
 test('standard spelling variants and common alternative expressions are accepted in practice', () => {
   for (const [id, answer] of [
-    ['fr-v-03', 'salut'], ['de-v-03', 'tschüs'], ['de-v-03', 'Auf Wiedersehen'],
+    ['fr-v-01', 'salut'], ['fr-v-03', 'salut'], ['fr-v-04', "s’il vous plait"],
+    ['de-v-01', 'Hallo'], ['de-v-01', 'Guten Morgen'], ['de-v-03', 'tschüs'], ['de-v-03', 'Auf Wiedersehen'],
     ['de-v-06', 'Verzeihung'], ['de-v-20', 'die Strasse'], ['de-v-27', 'zu Fuß gehen'],
-    ['de-g-17', 'grösser'], ['it-v-01', 'buon giorno'], ['it-v-02', 'buona sera'],
+    ['de-g-17', 'grösser'], ['it-v-01', 'buon giorno'], ['it-v-01', 'salve'], ['it-v-02', 'buona sera'],
     ['it-v-03', 'arrivederla'], ['it-v-17', 'la stazione ferroviaria'], ['pt-v-03', 'tchau'],
   ]) {
     const card = CARDS.find((item) => item.id === id);
