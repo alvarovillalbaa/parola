@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CARDS, LANGUAGES } from '../public/data.mjs';
+import { checkAnswer } from '../public/engine.mjs';
 
 test('the four language courses use the requested default cue languages and locales', () => {
   assert.deepEqual(LANGUAGES.map(({ id, defaultSource }) => [id, defaultSource]), [
@@ -73,4 +74,19 @@ test('noun cards teach articles and German noun capitalization, while Portuguese
   }
   assert.ok(CARDS.some(({ language, answers }) => language === 'pt' && answers.includes('o comboio')));
   assert.ok(CARDS.some(({ language, example }) => language === 'pt' && example.target === 'Estou a trabalhar.'));
+});
+
+test('standard spelling variants and common alternative expressions are accepted in practice', () => {
+  for (const [id, answer] of [
+    ['fr-v-03', 'salut'], ['de-v-03', 'tschüs'], ['de-v-03', 'Auf Wiedersehen'],
+    ['de-v-06', 'Verzeihung'], ['de-v-20', 'die Strasse'], ['de-v-27', 'zu Fuß gehen'],
+    ['de-g-17', 'grösser'], ['it-v-01', 'buon giorno'], ['it-v-02', 'buona sera'],
+    ['it-v-03', 'arrivederla'], ['it-v-17', 'la stazione ferroviaria'], ['pt-v-03', 'tchau'],
+  ]) {
+    const card = CARDS.find((item) => item.id === id);
+    assert.equal(checkAnswer(answer, card.answers).correct, true, `${id}: rejected ${answer}`);
+  }
+  const station = CARDS.find(({ id }) => id === 'it-v-17');
+  assert.match(station.cue.es, /estación de tren/);
+  assert.equal(checkAnswer('la stagione', station.answers).correct, false);
 });

@@ -14,6 +14,9 @@ test('answer matching preserves accents and normalizes Unicode, case, spaces and
   assert.deepEqual(checkAnswer('  Ich   heiße Álvaro. ', ['Ich heiße Álvaro']), { correct: true, accentOnly: false });
   assert.deepEqual(checkAnswer('strasse', ['Straße']), { correct: false, accentOnly: false });
   assert.deepEqual(checkAnswer('', ['']), { correct: false, accentOnly: false });
+  assert.equal(normalizeAnswer('  de l’.  '), "de l'");
+  assert.deepEqual(checkAnswer('de l', ["de l'"]), { correct: false, accentOnly: false });
+  assert.deepEqual(checkAnswer('de l’', ["de l'"]), { correct: true, accentOnly: false });
 });
 
 test('default sources and separate state instances', () => {

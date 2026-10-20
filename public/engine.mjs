@@ -28,7 +28,7 @@ export function normalizeAnswer(text) {
     .replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
     .trim()
     .replace(/\s+/gu, ' ')
-    .replace(/[\p{P}\s]+$/gu, '')
+    .replace(/(?:(?!')\p{P}|\s)+$/gu, '')
     .trim();
 }
 

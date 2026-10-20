@@ -183,7 +183,7 @@ document.addEventListener('click',async event=>{
   if(action==='next' && session?.feedback) {if(session.feedback.correct) review(['hard','good','easy'].includes(grade)?grade:'good');session.index++;session.feedback=null;session.attempt='';render();}
   if(action==='finish') {session=null;navigate('today');}
   if(action==='another') {session=null;beginSession();}
-  if(action==='accent') {const input=document.querySelector('#answer');const start=input.selectionStart??input.value.length;const end=input.selectionEnd??start;input.setRangeText(char,start,end,'end');input.focus();}
+  if(action==='accent') {const input=document.querySelector('#answer');const start=input.selectionStart??input.value.length;const end=input.selectionEnd??start;input.setRangeText(char,start,end,'end');if(session)session.attempt=input.value;input.focus();}
   if(action==='filter') {libraryKind=kind;render();}
   if(action==='add-card') openCardDialog();
   if(action==='close-card') cardDialog.close();
@@ -221,7 +221,7 @@ document.addEventListener('submit',event=>{
     catch(error) {document.querySelector('#custom-error').textContent=`Could not add this card: ${error.message}`;}
   }
 });
-document.addEventListener('input',event=>{if(event.target.id==='library-search'){libraryQuery=event.target.value;document.querySelector('#library-results').innerHTML=libraryResults();}});
+document.addEventListener('input',event=>{if(event.target.id==='answer' && session && !session.feedback)session.attempt=event.target.value;if(event.target.id==='library-search'){libraryQuery=event.target.value;document.querySelector('#library-results').innerHTML=libraryResults();}});
 document.addEventListener('change',async event=>{
   if(event.target.id==='language-select'){state.settings.language=event.target.value;session=null;save();render();}
   if(event.target.id==='reminder-time'){if(event.target.validity.valid && event.target.value){state.settings.reminderTime=event.target.value;save();}}
