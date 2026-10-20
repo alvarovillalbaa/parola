@@ -1,0 +1,116 @@
+{
+  "checkedAt": "2026-10-20 19:29:36 UTC",
+  "repository": "https://github.com/alvarovillalbaa/parola",
+  "applicationCommit": "67c405ae7cc6674fd0ff14a565e253fed6f2aff8",
+  "deployment": {
+    "id": "dpl_HVodU5Qnbn7tCDTNXD4XuVp2Vdvm",
+    "state": "READY",
+    "target": "production",
+    "url": "https://parola-eta.vercel.app",
+    "projectId": "prj_BaymEFpkWQXceTuwLzehg4G8dUHk",
+    "teamId": "team_JpdIsOJgYNpX0ywVZ54Zdb7m",
+    "gitIntegration": "Automatic production deployment verified after main push"
+  },
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 1189,
+      "sha256": "65e58fb6b1940d2dc5aab5cfaa1d3ba3896a65b969acc1c1f21b667c8731bc7a"
+    },
+    {
+      "path": "/app.mjs",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 36803,
+      "sha256": "699e3725ea9a41b9d739d6c0ae483601216e24dcccb5505f1d7cb1e728926220"
+    },
+    {
+      "path": "/data.mjs",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 64822,
+      "sha256": "57239654dd5e6e5c99480a2bbd4d1150d772303978b84f68897012d7500af3ed"
+    },
+    {
+      "path": "/engine.mjs",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 14060,
+      "sha256": "abcf0a138be379ee4d1d3dda4d5b4ce8b40fb05811085140ba0a3e52a454616a"
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 29860,
+      "sha256": "9b933544db6979e95fee8bc0792e600c53b9829069bc8128d81d4112f5a16e1c"
+    },
+    {
+      "path": "/theme.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 159,
+      "sha256": "6e4cf93afd27d6c22dddd02a29a137dcf809319676b7ff20c45e6fd14daa1509"
+    },
+    {
+      "path": "/reminders.mjs",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 9399,
+      "sha256": "76ff935b636a7c91ca6fc3630e06b84aec5db0d53bc880cbe2b662cffc119199"
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "matchesSource": true,
+      "workerNoCache": true,
+      "bytes": 2502,
+      "sha256": "a898a45b301298cf41ddf0b5a6892bb524358e51beff421473170dc065436cd7"
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "status": 200,
+      "type": "application/manifest+json; charset=utf-8",
+      "matchesSource": true,
+      "bytes": 435,
+      "sha256": "9d43689445dae58f7acf2fb6bc9c0201868aba2ff3d4a7867423377903d7bc71"
+    },
+    {
+      "path": "/icon.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "matchesSource": true,
+      "bytes": 349,
+      "sha256": "eed6842e3194f92d3adddc00d32f803631a37fd641ec2e73648ca81cc2c83347"
+    }
+  ],
+  "localChecks": {
+    "static": "passed; all eight language/source paths",
+    "tests": {
+      "passed": 31,
+      "failed": 0
+    },
+    "diffCheck": "passed",
+    "dependenciesInstalled": false,
+    "localBuildRun": false
+  },
+  "browser": {
+    "status": "pending",
+    "authorized": true,
+    "blocker": "No connected browser; native computer-use pipe startup failure. User is connecting a browser."
+  },
+  "notifications": {
+    "calendar": "Daily local-time recurrence and display alarm verified by tests; real calendar import/delivery unverified",
+    "browser": "Open-app timing, permission handling, deduplication verified with mocks; OS delivery unverified"
+  }
+}
