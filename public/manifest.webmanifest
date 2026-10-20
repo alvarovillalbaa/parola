@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "Parola — a little language, every day",
+  "short_name": "Parola",
+  "description": "Vocabulary and grammatical structures through daily active recall.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f4ee",
+  "theme_color": "#d9e8b0",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
