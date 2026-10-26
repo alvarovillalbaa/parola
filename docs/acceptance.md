@@ -29,3 +29,7 @@ Browser verification was explicitly authorized by Alvaro. Computer-use inventory
 Initial production deployment `dpl_2CssvBKT7AEsrmSoR73KiouRLRW3` served commit `af3062d6485b2474eea57ef15101f20e1c7d56a3`. Public module MIME types, CSP, worker cache header, and exact hosted/source content were checked. Vercel runtime error/fatal logs contained no records for the release; static client-side errors require browser observation and are not covered by those logs.
 
 The refined application at commit `67c405ae7cc6674fd0ff14a565e253fed6f2aff8` automatically deployed from GitHub main as `dpl_HVodU5Qnbn7tCDTNXD4XuVp2Vdvm` (READY, production). All ten public assets were fetched again and matched the local committed source. Exact byte sizes, SHA-256 hashes, MIME types and verification boundaries are in [the deployment receipt](deployment-verification.json).
+
+## Connected browser results — 2026-10-26
+
+The browser connection is now working. Production Chrome checks passed all 16 vocabulary/grammar course paths across the eight language/source directions, a complete mixed daily session with a missed-item retry, visible progress after reload, mobile layout and recall, and collection filters. See the [dated browser acceptance receipt](results/2026/10-26/browser-acceptance.md) for screenshots, card IDs and exact limits. This supersedes the earlier connection blocker, not the separate offline, backup, calendar-delivery or device-notification gaps. The prepared hosted workflow is still awaiting explicit CI approval.
