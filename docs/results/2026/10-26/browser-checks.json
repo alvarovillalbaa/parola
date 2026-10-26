@@ -1,0 +1,221 @@
+{
+  "verifiedAt": "2026-10-26T15:24:39.000Z",
+  "url": "https://parola-eta.vercel.app/",
+  "method": "Browser skill, connected Chrome, visible DOM interactions only",
+  "checks": [
+    {
+      "check": "mixed recall",
+      "card": "fr-v-02"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-g-02"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-v-03"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-g-03"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-v-04"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-g-04"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-v-05"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-g-05"
+    },
+    {
+      "check": "mixed recall",
+      "card": "fr-g-01"
+    },
+    {
+      "check": "mixed daily session",
+      "recalls": 11,
+      "correct": 10,
+      "unique": 10,
+      "retry": true
+    },
+    {
+      "check": "default sources",
+      "observed": [
+        {
+          "id": "source-fr",
+          "value": "es"
+        },
+        {
+          "id": "source-de",
+          "value": "en"
+        },
+        {
+          "id": "source-it",
+          "value": "es"
+        },
+        {
+          "id": "source-pt",
+          "value": "es"
+        }
+      ]
+    },
+    {
+      "check": "course path",
+      "language": "fr",
+      "source": "es",
+      "kind": "vocabulary",
+      "card": "fr-v-06"
+    },
+    {
+      "check": "course path",
+      "language": "fr",
+      "source": "es",
+      "kind": "grammar",
+      "card": "fr-g-06"
+    },
+    {
+      "check": "course path",
+      "language": "fr",
+      "source": "en",
+      "kind": "vocabulary",
+      "card": "fr-v-07"
+    },
+    {
+      "check": "course path",
+      "language": "fr",
+      "source": "en",
+      "kind": "grammar",
+      "card": "fr-g-07"
+    },
+    {
+      "check": "course path",
+      "language": "de",
+      "source": "es",
+      "kind": "vocabulary",
+      "card": "de-v-01"
+    },
+    {
+      "check": "course path",
+      "language": "de",
+      "source": "es",
+      "kind": "grammar",
+      "card": "de-g-01"
+    },
+    {
+      "check": "course path",
+      "language": "de",
+      "source": "en",
+      "kind": "vocabulary",
+      "card": "de-v-02"
+    },
+    {
+      "check": "course path",
+      "language": "de",
+      "source": "en",
+      "kind": "grammar",
+      "card": "de-g-02"
+    },
+    {
+      "check": "course path",
+      "language": "it",
+      "source": "es",
+      "kind": "vocabulary",
+      "card": "it-v-01"
+    },
+    {
+      "check": "course path",
+      "language": "it",
+      "source": "es",
+      "kind": "grammar",
+      "card": "it-g-01"
+    },
+    {
+      "check": "course path",
+      "language": "it",
+      "source": "en",
+      "kind": "vocabulary",
+      "card": "it-v-02"
+    },
+    {
+      "check": "course path",
+      "language": "it",
+      "source": "en",
+      "kind": "grammar",
+      "card": "it-g-02"
+    },
+    {
+      "check": "course path",
+      "language": "pt",
+      "source": "es",
+      "kind": "vocabulary",
+      "card": "pt-v-01"
+    },
+    {
+      "check": "course path",
+      "language": "pt",
+      "source": "es",
+      "kind": "grammar",
+      "card": "pt-g-01"
+    },
+    {
+      "check": "course path",
+      "language": "pt",
+      "source": "en",
+      "kind": "vocabulary",
+      "card": "pt-v-02"
+    },
+    {
+      "check": "course path",
+      "language": "pt",
+      "source": "en",
+      "kind": "grammar",
+      "card": "pt-g-02"
+    },
+    {
+      "check": "visible progress survives reload",
+      "observed": "French 14; German/Italian/Portuguese 4 each; 26 unique daily recalls"
+    },
+    {
+      "check": "calendar button",
+      "status": "partial",
+      "observed": "UI acknowledged calendar export; browser download event timed out, file bytes unverified"
+    },
+    {
+      "check": "mobile today layout",
+      "dimensions": {
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "check": "mobile typed recall",
+      "card": "fr-v-08",
+      "feedback": true,
+      "dimensions": {
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "check": "mobile collection filters",
+      "search": "café matched vocabulary and grammar: 2 items",
+      "grammarItems": 18
+    }
+  ],
+  "boundaries": [
+    "No private browser stores read. No offline network override available through this browser API.",
+    "Backup round-trip, custom cards, device notifications, calendar delivery and cross-day spacing not exercised.",
+    "Calendar UI acknowledged export, download observer timed out.",
+    "QA recalls persist in this browser; original preferences were restored."
+  ]
+}
