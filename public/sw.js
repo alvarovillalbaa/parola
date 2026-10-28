@@ -1,4 +1,4 @@
-const CACHE_NAME = 'parola-shell-v3';
+const CACHE_NAME = 'parola-shell-v4';
 const ASSETS = ['/', '/index.html', '/styles.css', '/theme.css', '/app.mjs', '/engine.mjs', '/data.mjs', '/reminders.mjs', '/manifest.webmanifest', '/icon.svg'];
 
 self.addEventListener('install', (event) => {

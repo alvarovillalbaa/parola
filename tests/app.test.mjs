@@ -11,17 +11,30 @@ const STORAGE_KEY = 'parola-state-v1';
 const decode = (text) => text.replace(/&(amp|lt|gt|quot|#39);/gu, (_, name) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" }[name]));
 
 // This harness exercises application JavaScript and real learning data. It does
-// not emulate layout, native form validation, dialogs, or browser permissions.
+// not emulate layout, native form validation, or browser permissions. Dialog
+// methods and cancel's default closure are event-flow fixtures, not browser proof.
 function createApp(initialStorage) {
   const listeners = { document: new Map(), window: new Map() };
   const storage = new Map(initialStorage ? [[STORAGE_KEY, initialStorage]] : []);
   const downloads = [];
   const nodes = new Map();
-  const element = () => ({
-    value: '', textContent: '', hidden: false, innerHTML: '',
-    focus() {}, classList: { add() {}, remove() {} },
-    showModal() { this.open = true; }, close() { this.open = false; },
-  });
+  const element = () => {
+    const handlers = new Map();
+    return {
+      value: '', textContent: '', hidden: false, innerHTML: '', open: false,
+      focus() {}, classList: { add() {}, remove() {} },
+      showModal() { this.open = true; }, close() { this.open = false; },
+      addEventListener(type, handler) {
+        const list = handlers.get(type) ?? [];
+        list.push(handler); handlers.set(type, list);
+      },
+      async emit(type) {
+        const event = { defaultPrevented: false, preventDefault() { this.defaultPrevented = true; } };
+        for (const handler of handlers.get(type) ?? []) await handler(event);
+        if (type === 'cancel' && !event.defaultPrevented) this.close();
+      },
+    };
+  };
   for (const id of ['#toast', '#main', '#card-dialog', '#restore-dialog', '#custom-error', '#storage-banner', '#library-results']) nodes.set(id, element());
   const app = element();
   let html = '';
@@ -225,4 +238,249 @@ test('caught-up practice requires an explicit extra-practice action', async () =
   assert.equal(app.read('session.extra'), true);
   assert.equal(app.read('session.cards.length'), 10);
   assert.equal(app.nodes.has('#answer'), true);
+});
+
+function deferred() {
+  let resolve, reject;
+  const promise = new Promise((done, fail) => { resolve = done; reject = fail; });
+  return { promise, resolve, reject };
+}
+
+function restoreFile(app, content, size) {
+  const files = content === null ? [] : [{
+    size: size ?? (typeof content === 'string' ? Buffer.byteLength(content) : 1),
+    text: typeof content === 'function' ? content : async () => content,
+  }];
+  return app.emit('document', 'change', { target: { id: 'restore-file', files, value: 'practice.json' } });
+}
+
+function backupWithGoal(goal) {
+  const state = engine.createState();
+  state.settings.dailyGoal = goal;
+  return engine.serializeBackup(state);
+}
+
+async function completeRead(read, job, outcome, goal = 5) {
+  if (outcome === 'success') read.resolve(backupWithGoal(goal));
+  else read.reject(new Error('An older file could not be read.'));
+  await job;
+}
+
+const assertNoRestore = (app) => {
+  assert.equal(app.read('pendingRestore'), null);
+  assert.equal(app.nodes.get('#restore-dialog').open, false);
+};
+
+for (const oldOutcome of ['success', 'failure']) {
+  for (const order of ['older first', 'newer first']) {
+    test(`newest valid backup owns the preview and confirmation: old ${oldOutcome}, ${order}`, async () => {
+      const app = createApp();
+      const older = deferred(), newer = deferred();
+      const first = restoreFile(app, () => older.promise);
+      const second = restoreFile(app, () => newer.promise);
+      const toast = app.nodes.get('#toast').textContent;
+      if (order === 'older first') {
+        await completeRead(older, first, oldOutcome);
+        assertNoRestore(app);
+        assert.equal(app.nodes.get('#toast').textContent, toast);
+      }
+      newer.resolve(backupWithGoal(15)); await second;
+      assert.equal(app.read('pendingRestore.settings.dailyGoal'), 15);
+      assert.equal(app.nodes.get('#restore-dialog').open, true);
+      if (order === 'newer first') await completeRead(older, first, oldOutcome);
+      assert.equal(app.read('pendingRestore.settings.dailyGoal'), 15);
+      assert.equal(app.nodes.get('#restore-dialog').open, true);
+      assert.equal(app.nodes.get('#toast').textContent, toast);
+      assert.equal(app.read('state.settings.dailyGoal'), 10);
+      assert.equal(app.storage.get(STORAGE_KEY), undefined);
+      await app.click('confirm-restore');
+      assert.equal(app.read('state.settings.dailyGoal'), 15);
+      assert.equal(JSON.parse(app.storage.get(STORAGE_KEY)).settings.dailyGoal, 15);
+      assertNoRestore(app);
+    });
+
+    test(`newest read failure stays authoritative: old ${oldOutcome}, ${order}`, async () => {
+      const app = createApp();
+      const older = deferred(), newer = deferred();
+      const first = restoreFile(app, () => older.promise);
+      const second = restoreFile(app, () => newer.promise);
+      if (order === 'older first') {
+        await completeRead(older, first, oldOutcome);
+        assertNoRestore(app);
+      }
+      newer.reject(new Error('The newest file could not be read.')); await second;
+      assertNoRestore(app);
+      assert.match(app.nodes.get('#toast').textContent, /The newest file could not be read/u);
+      const toast = app.nodes.get('#toast').textContent;
+      if (order === 'newer first') await completeRead(older, first, oldOutcome);
+      assertNoRestore(app);
+      assert.equal(app.nodes.get('#toast').textContent, toast);
+      assert.equal(app.read('state.settings.dailyGoal'), 10);
+      assert.equal(app.storage.get(STORAGE_KEY), undefined);
+    });
+  }
+}
+
+test('a late malformed older file cannot clear the newer valid preview', async () => {
+  const app = createApp();
+  const older = deferred();
+  const first = restoreFile(app, () => older.promise);
+  await restoreFile(app, backupWithGoal(15));
+  const toast = app.nodes.get('#toast').textContent;
+  older.resolve('{not JSON'); await first;
+  assert.equal(app.read('pendingRestore.settings.dailyGoal'), 15);
+  assert.equal(app.nodes.get('#restore-dialog').open, true);
+  assert.equal(app.nodes.get('#toast').textContent, toast);
+});
+
+test('a new pending read immediately removes the prior preview and makes its confirmation inert', async () => {
+  const app = createApp();
+  await restoreFile(app, backupWithGoal(5));
+  const newer = deferred();
+  const second = restoreFile(app, () => newer.promise);
+  assertNoRestore(app);
+  await app.click('confirm-restore');
+  assert.equal(app.read('state.settings.dailyGoal'), 10);
+  assert.equal(app.storage.get(STORAGE_KEY), undefined);
+  newer.resolve(backupWithGoal(15)); await second;
+  await app.click('confirm-restore');
+  assert.equal(JSON.parse(app.storage.get(STORAGE_KEY)).settings.dailyGoal, 15);
+});
+
+for (const selection of ['empty', 'oversized', 'malformed']) {
+  for (const earlier of ['pending read', 'ready preview']) {
+    test(`${selection} selection invalidates an earlier ${earlier}`, async () => {
+      const app = createApp();
+      const older = deferred();
+      const first = earlier === 'pending read' ? restoreFile(app, () => older.promise) : null;
+      if (!first) await restoreFile(app, backupWithGoal(5));
+      if (selection === 'empty') await restoreFile(app, null);
+      if (selection === 'oversized') {
+        let read = false;
+        await restoreFile(app, () => { read = true; return Promise.resolve(backupWithGoal(15)); }, 5 * 1024 * 1024 + 1);
+        assert.equal(read, false);
+        assert.match(app.nodes.get('#toast').textContent, /too large/u);
+      }
+      if (selection === 'malformed') {
+        await restoreFile(app, '{not JSON');
+        assert.match(app.nodes.get('#toast').textContent, /Could not restore/u);
+      }
+      assertNoRestore(app);
+      const toast = app.nodes.get('#toast').textContent;
+      if (first) { older.resolve(backupWithGoal(5)); await first; }
+      assertNoRestore(app);
+      assert.equal(app.nodes.get('#toast').textContent, toast);
+      await app.click('confirm-restore');
+      assert.equal(app.read('state.settings.dailyGoal'), 10);
+      assert.equal(app.storage.get(STORAGE_KEY), undefined);
+    });
+  }
+}
+
+const invalidators = {
+  'explicit close': async (app) => app.click('close-restore'),
+  'Escape cancel': async (app) => app.nodes.get('#restore-dialog').emit('cancel'),
+  'in-app navigation': async (app) => app.read("navigate('library')"),
+  'hash navigation': async (app) => {
+    app.read("location.hash = '#settings'");
+    await app.emit('window', 'hashchange', {});
+  },
+  'page departure': async (app) => app.emit('window', 'pagehide', { persisted: true }),
+  'cross-tab progress': async (app) => {
+    const next = engine.createState(); next.settings.dailyGoal = 20;
+    const raw = JSON.stringify(next);
+    app.storage.set(STORAGE_KEY, raw);
+    await app.emit('window', 'storage', { key: STORAGE_KEY, newValue: raw });
+  },
+  'unreadable cross-tab progress': async (app) => {
+    app.storage.set(STORAGE_KEY, '{broken');
+    await app.emit('window', 'storage', { key: STORAGE_KEY, newValue: '{broken' });
+  },
+  'personal-card deletion preview': async (app) => app.click('delete-card', { id: app.read('state.customCards[0].id') }),
+};
+
+for (const [name, invalidate] of Object.entries(invalidators)) {
+  for (const outcome of ['success', 'failure']) {
+    test(`${name} invalidates a pending ${outcome} without altering the new context`, async () => {
+      const app = createApp();
+      if (name === 'personal-card deletion preview') {
+        await app.submit('custom-card-form', { language: 'fr', kind: 'vocabulary', es: 'mi palabra', en: 'my word', answer: 'mon mot', alternatives: '', note: '' });
+      }
+      const older = deferred();
+      const first = restoreFile(app, () => older.promise);
+      await invalidate(app);
+      const context = {
+        state: app.read('JSON.stringify(state)'),
+        storage: app.storage.get(STORAGE_KEY),
+        toast: app.nodes.get('#toast').textContent,
+        dialog: app.nodes.get('#restore-dialog').innerHTML,
+        open: app.nodes.get('#restore-dialog').open,
+      };
+      await completeRead(older, first, outcome);
+      assert.equal(app.read('pendingRestore'), null);
+      assert.equal(app.read('JSON.stringify(state)'), context.state);
+      assert.equal(app.storage.get(STORAGE_KEY), context.storage);
+      assert.equal(app.nodes.get('#toast').textContent, context.toast);
+      assert.equal(app.nodes.get('#restore-dialog').innerHTML, context.dialog);
+      assert.equal(app.nodes.get('#restore-dialog').open, context.open);
+      await app.click('confirm-restore');
+      assert.equal(app.read('JSON.stringify(state)'), context.state);
+      assert.equal(app.storage.get(STORAGE_KEY), context.storage);
+      if (name === 'personal-card deletion preview') {
+        assert.match(context.dialog, /Remove this item/u);
+        await app.click('confirm-delete', { id: app.read('state.customCards[0].id') });
+        assert.equal(app.read('state.customCards.length'), 0);
+        assert.equal(app.nodes.get('#restore-dialog').open, false);
+      }
+    });
+  }
+}
+
+test('Escape discards an already displayed candidate before native default closure', async () => {
+  const app = createApp();
+  await restoreFile(app, backupWithGoal(5));
+  await app.nodes.get('#restore-dialog').emit('cancel');
+  assertNoRestore(app);
+  await app.click('confirm-restore');
+  assert.equal(app.read('state.settings.dailyGoal'), 10);
+  assert.equal(app.storage.get(STORAGE_KEY), undefined);
+});
+
+test('a deletion preview cannot retain an already displayed restore candidate', async () => {
+  const app = createApp();
+  await app.submit('custom-card-form', { language: 'fr', kind: 'vocabulary', es: 'mi palabra', en: 'my word', answer: 'mon mot', alternatives: '', note: '' });
+  const saved = app.storage.get(STORAGE_KEY);
+  const id = app.read('state.customCards[0].id');
+  await restoreFile(app, backupWithGoal(5));
+  await app.click('delete-card', { id });
+  assert.equal(app.read('pendingRestore'), null);
+  assert.match(app.nodes.get('#restore-dialog').innerHTML, /Remove this item/u);
+  await app.click('confirm-restore');
+  assert.equal(app.storage.get(STORAGE_KEY), saved);
+  await app.click('confirm-delete', { id });
+  assert.equal(app.read('state.customCards.length'), 0);
+});
+
+test('an already closed dialog cannot apply its retained candidate', async () => {
+  const app = createApp();
+  await restoreFile(app, backupWithGoal(5));
+  app.nodes.get('#restore-dialog').close();
+  await app.click('confirm-restore');
+  assert.equal(app.read('state.settings.dailyGoal'), 10);
+  assert.equal(app.storage.get(STORAGE_KEY), undefined);
+});
+
+test('reselecting A after B gives the latest A its own confirmation', async () => {
+  const app = createApp();
+  const olderA = deferred(), betweenB = deferred(), newestA = deferred();
+  const first = restoreFile(app, () => olderA.promise);
+  const second = restoreFile(app, () => betweenB.promise);
+  const third = restoreFile(app, () => newestA.promise);
+  newestA.resolve(backupWithGoal(5)); await third;
+  betweenB.resolve(backupWithGoal(15)); await second;
+  olderA.reject(new Error('Original A failed.')); await first;
+  assert.equal(app.read('pendingRestore.settings.dailyGoal'), 5);
+  await app.click('confirm-restore');
+  assert.equal(JSON.parse(app.storage.get(STORAGE_KEY)).settings.dailyGoal, 5);
+  assertNoRestore(app);
 });

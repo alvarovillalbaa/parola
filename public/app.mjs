@@ -9,6 +9,7 @@ const restoreDialog = document.querySelector('#restore-dialog');
 let state, storageIssue = '', preserveStorage = false, rawRecovery = '';
 let view = ['today', 'library', 'progress', 'settings'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
 let session = null, pendingRestore = null, libraryKind = 'all', libraryQuery = '', installPrompt = null;
+let restoreRequest = 0;
 let renderedDay = dayKey(new Date());
 try {
   rawRecovery = localStorage.getItem(STORAGE_KEY) || '';
@@ -62,7 +63,16 @@ function download(text, name, type) {
   const anchor = document.createElement('a'); anchor.href = url; anchor.download = name; anchor.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+function discardRestore() {
+  restoreRequest += 1;
+  pendingRestore = null;
+}
+function closeRestore() {
+  discardRestore();
+  restoreDialog.close();
+}
 function navigate(next) {
+  closeRestore();
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   view = next;
   if (next !== 'session') history.replaceState(null, '', `#${next}`);
@@ -191,13 +201,14 @@ document.addEventListener('click',async event=>{
   if(action==='choose-language') {session=null;state.settings.language=id;save();navigate('today');}
   if(action==='delete-card') {
     const c=state.customCards.find(c=>c.id===id);if(!c)return;
+    closeRestore();
     restoreDialog.innerHTML=`<div class="dialog-heading"><h2 id="restore-title">Remove this item?</h2><button class="icon-button" data-action="close-restore" aria-label="Close">${icon('close')}</button></div><p>${esc(c.cue[source()])}</p><p class="field-help">This removes the personal card and its review schedule. Export a backup first if you want to keep it.</p><button class="button primary" data-action="confirm-delete" data-id="${esc(id)}">Remove item</button>`;restoreDialog.showModal();
   }
   if(action==='confirm-delete') {state.customCards=state.customCards.filter(c=>c.id!==id);delete state.progress[id];session=null;save();restoreDialog.close();render();toast('Item removed.');}
   if(action==='backup') download(serializeBackup(state),`parola-${dayKey(new Date())}.json`,'application/json');
   if(action==='recover') download(rawRecovery,'parola-original-recovery.json','application/json');
-  if(action==='close-restore') {restoreDialog.close();pendingRestore=null;}
-  if(action==='confirm-restore' && pendingRestore) {state=pendingRestore;pendingRestore=null;session=null;preserveStorage=false;storageIssue='';save();restoreDialog.close();navigate('today');toast('Backup restored. Your practice is ready.');}
+  if(action==='close-restore') closeRestore();
+  if(action==='confirm-restore' && pendingRestore && restoreDialog.open) {const candidate=pendingRestore;closeRestore();state=candidate;session=null;preserveStorage=false;storageIssue='';save();navigate('today');toast('Backup restored. Your practice is ready.');}
   if(action==='calendar') {const time=document.querySelector('#reminder-time').value;if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)){toast('Choose a valid reminder time.');return;}state.settings.reminderTime=time;save();download(makeCalendar({time,url:location.origin}), 'parola-daily-practice.ics','text/calendar;charset=utf-8');toast('Open the calendar file, import the event, and enable calendar alerts.');}
   if(action==='notifications') {
     if(state.settings.browserReminders) {state.settings.browserReminders=false;save();render();toast('Browser reminders turned off.');}
@@ -226,16 +237,20 @@ document.addEventListener('change',async event=>{
   if(event.target.id==='language-select'){state.settings.language=event.target.value;session=null;save();render();}
   if(event.target.id==='reminder-time'){if(event.target.validity.valid && event.target.value){state.settings.reminderTime=event.target.value;save();}}
   if(event.target.id==='restore-file') {
+    closeRestore();const request=restoreRequest;
     const file=event.target.files[0];event.target.value='';if(!file)return;
     if(file.size>5*1024*1024){toast('This backup is too large. Choose a Parola JSON backup under 5 MB.');return;}
-    try {pendingRestore=parseBackup(await file.text(),CARDS);restoreDialog.innerHTML=`<div class="dialog-heading"><h2 id="restore-title">Restore your practice?</h2><button class="icon-button" data-action="close-restore" aria-label="Close">${icon('close')}</button></div><p>This backup contains ${Object.keys(pendingRestore.progress).length} practiced items and ${pendingRestore.customCards.length} personal cards.</p><p>Restoring replaces the progress and preferences on this device. Export your current backup first if you want to keep it.</p><button class="button primary" data-action="confirm-restore">Replace with this backup</button>`;restoreDialog.showModal();}
-    catch(error){pendingRestore=null;toast(`Could not restore: ${error.message}`);}
+    try {const text=await file.text();if(request!==restoreRequest)return;pendingRestore=parseBackup(text,CARDS);restoreDialog.innerHTML=`<div class="dialog-heading"><h2 id="restore-title">Restore your practice?</h2><button class="icon-button" data-action="close-restore" aria-label="Close">${icon('close')}</button></div><p>This backup contains ${Object.keys(pendingRestore.progress).length} practiced items and ${pendingRestore.customCards.length} personal cards.</p><p>Restoring replaces the progress and preferences on this device. Export your current backup first if you want to keep it.</p><button class="button primary" data-action="confirm-restore">Replace with this backup</button>`;restoreDialog.showModal();}
+    catch(error){if(request!==restoreRequest)return;pendingRestore=null;toast(`Could not restore: ${error.message}`);}
   }
 });
-window.addEventListener('hashchange',()=>{const next=location.hash.slice(1);if(['today','library','progress','settings'].includes(next)){view=next;render();}});
+restoreDialog.addEventListener('cancel',discardRestore);
+window.addEventListener('pagehide',closeRestore);
+window.addEventListener('hashchange',()=>{const next=location.hash.slice(1);if(['today','library','progress','settings'].includes(next)){closeRestore();view=next;render();}});
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;if(view==='settings')render();});
 window.addEventListener('storage',event=>{
   if(event.key!==STORAGE_KEY)return;
+  closeRestore();
   try {state=event.newValue?validateState(JSON.parse(event.newValue),CARDS):createState();session=null;view='today';render();toast('Progress changed in another tab. Your practice is now up to date.');}
   catch{toast('Another tab changed saved data. Export your backup before reloading.');preserveStorage=true;}
 });
