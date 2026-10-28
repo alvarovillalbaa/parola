@@ -59,12 +59,38 @@ Checked app SHA256:
 `1146087cddde0b62c07ec5f98aae2b6f4ac118cad35f9f3e2739b1c1884a18b6`.
 Checked test SHA256:
 `8441a734e8375b06e601894e785e57cdd5a980922058a0b7cc898f37748fce4e`.
-Source and hosted publication evidence will follow delivery.
 
 Pre-existing changes to `.gitignore`, README and acceptance documentation, plus
 the untracked hosted-browser workflow and runner, were fingerprinted before
 editing. They are outside this change and will not be staged or published.
-No dependency, build/server/browser, backend/provider/model, schema/Auth,
-notification prompt or CI execution is part of this source repair. Existing
+No local dependency installation, build/server/browser check, backend test,
+model request, schema/Auth change, notification prompt or CI execution is part
+of this source repair. Existing
 offline, backup/file-chooser, calendar-alert and device-notification acceptance
 gates remain separate.
+
+## Published source and delivery
+
+Source [`c0253e97e706e202137ba1b2ec98e993209aa2be`](https://github.com/alvarovillalbaa/parola/commit/c0253e97e706e202137ba1b2ec98e993209aa2be)
+was pushed to personal-repository main. Immutable GitHub readback matches
+local blobs for app (`c3af5fbd5dcee0cb445103496ba5edd3a9c6390a`), worker
+(`4266f4b4e065b781c1d574f1037abda4cb0cacbb`) and focused tests
+(`5dec51c30dc7a29c491b9bbfe0b26c5d5bcf73d3`).
+
+Vercel production [`dpl_9ysB5SJrGRjYQnLxKemSgGVAmqZz`](https://vercel.com/my-team-4f230354/parola/9ysB5SJrGRjYQnLxKemSgGVAmqZz)
+reached READY at that exact SHA with the canonical aliases assigned. Public
+homepage GET returned 200 (1,189 bytes). Both changed assets returned 200 and
+matched the checked source byte for byte:
+
+| Asset | Bytes | SHA256 |
+| --- | --- | --- |
+| `/app.mjs` | 37,283 | `1146087cddde0b62c07ec5f98aae2b6f4ac118cad35f9f3e2739b1c1884a18b6` |
+| `/sw.js` | 2,502 | `a83861666a99b51f7c932b67605d653e7f2fd47e91ea2f0e671cc281f8b7c8a8` |
+
+The app is served as `text/javascript` with `public, max-age=0, must-revalidate`;
+the worker is `application/javascript` with `no-cache`. This establishes static
+delivery, not native-file selection, dialog/focus behavior, offline activation,
+restore persistence on a real browser/device or calendar/notification delivery.
+The receipt-only follow-up preserves all checked runtime and test bytes. The
+five unrelated dirty/untracked files were rechecked byte for byte and remain
+outside publication; no active workflow was added.
