@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "scope": "Parola new service-worker VM cases only",
+  "recordedAt": "2026-11-05T12:06:41.333671+00:00",
+  "runtime": "Node v26.8.2",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-timeout=10000",
+    "tests/service-worker.test.mjs"
+  ],
+  "exitCode": 1,
+  "counts": {
+    "tests": 19,
+    "passed": 18,
+    "failed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "inputs": [
+    {
+      "path": "public/sw.js",
+      "bytes": 6307,
+      "sha256": "e0ad2a9d057b9dc06740f51bc198abd1e615d282fac837feb74095fe3b3dea34"
+    },
+    {
+      "path": "tests/service-worker.test.mjs",
+      "bytes": 19585,
+      "sha256": "ef49ed259bac741e54ff89388810295923281ebdb7a8abeebf8c4c0d18dfded7"
+    }
+  ],
+  "cases": [
+    {
+      "name": "service worker ignores non-GET cross-origin and unknown non-navigation requests",
+      "outcome": "passed"
+    },
+    {
+      "name": "installation precaches exactly ten shell assets in the new owned cache",
+      "outcome": "passed"
+    },
+    {
+      "name": "activation removes only old Parola shell caches and claims clients",
+      "outcome": "passed"
+    },
+    {
+      "name": "complete network responses retain original identity URL headers status and readable body",
+      "outcome": "passed"
+    },
+    {
+      "name": "successful delivery clears timers and request listeners while preserving redirect and navigation cache policy",
+      "outcome": "passed"
+    },
+    {
+      "name": "never-resolving network headers fall back by the network deadline and abort the network signal",
+      "outcome": "passed"
+    },
+    {
+      "name": "a fetch resolving after timeout is cancelled without starting a reader or late cache write",
+      "outcome": "passed"
+    },
+    {
+      "name": "headers with a stalled response body use the same deadline without awaiting cancellation",
+      "outcome": "passed"
+    },
+    {
+      "name": "a body read error returns a complete cached response and releases its deadline resources",
+      "outcome": "passed"
+    },
+    {
+      "name": "response bodies above one MiB are cancelled and never cached or partially delivered",
+      "outcome": "failed"
+    },
+    {
+      "name": "already-aborted requests reject AbortError without networking or cached disclosure",
+      "outcome": "passed"
+    },
+    {
+      "name": "client cancellation immediately rejects an uncooperative fetch and removes its abort listener",
+      "outcome": "passed"
+    },
+    {
+      "name": "cache-open rejection cannot prevent a complete online response from being read",
+      "outcome": "passed"
+    },
+    {
+      "name": "stalled cache opening cannot gate online delivery or start a refresh after its maintenance deadline",
+      "outcome": "passed"
+    },
+    {
+      "name": "never-settling cache writes stay off delivery and have a bounded synchronous waitUntil lifetime",
+      "outcome": "passed"
+    },
+    {
+      "name": "cache-write rejection is caught without changing the delivered original response",
+      "outcome": "passed"
+    },
+    {
+      "name": "stalled cached reads expire after five hundred milliseconds and preserve a complete HTTP error response",
+      "outcome": "passed"
+    },
+    {
+      "name": "network rejection with absent rejected or stalled cache produces the fixed bounded offline response",
+      "outcome": "passed"
+    },
+    {
+      "name": "notification clicks still close the notification and focus an own window or open the app root",
+      "outcome": "passed"
+    }
+  ],
+  "failure": {
+    "name": "response bodies above one MiB are cancelled and never cached or partially delivered",
+    "location": "tests/service-worker.test.mjs:187",
+    "actual": 0,
+    "expected": 1,
+    "assertion": "cancelled === 1"
+  },
+  "evidenceBoundary": "Structured observation transcribed from the completed exec tool result. The original combined stdout/stderr was not archived, so this is not a full raw-stream receipt.",
+  "fixtureHypothesis": "The spy wrapped the original body before native Response.clone teed/replaced that branch. Confirm by observing the new branch after cloning; retain all delivery/cancel/abort/cache assertions.",
+  "browserProof": false,
+  "oldLearningSuitesRepeated": false
+}

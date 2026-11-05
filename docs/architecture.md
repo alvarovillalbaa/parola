@@ -18,7 +18,11 @@ Extra practice is an explicit choice when no cards are due/new. A correct early 
 
 Vercel serves only `public/`. There is no server, database, paid integration, tracker, or API secret. Native modules keep the app small and deployable without installation. A restrictive CSP requires same-origin external scripts/styles. Content is escaped before HTML rendering; personal backup files remain on the learner's device.
 
-The service worker precaches the app and collection, then refreshes same-origin app files from the network with cached fallbacks. Cache versions must be incremented with asset changes. Background web push is not implemented. Daily alerts while the app is closed are delegated to a recurring local-time calendar event with an alarm. Browser reminders run only while the app is open and permission is granted.
+The service worker precaches the app and collection, then refreshes same-origin app files from the network with cached fallbacks. A three-second network attempt includes reading the complete response body, with a one-MiB decoded-payload limit; headers alone do not establish a complete file. A failed attempt aborts the fetch and best-effort cancels both body branches. The original successful Response is preserved, including its URL, status, type and headers.
+
+Cache opening runs independently of networking. A cached fallback has a separate 500ms lookup budget; a broken cache cannot block a complete online response. Successful eligible responses still repair the cache, but outside foreground delivery through a synchronously registered waitUntil promise with a one-second maintenance window. Native Cache.put has no cancellation API: an already-started write may finish later, while a late cache open cannot start a new write after the window. These are browser-scheduled deadlines, not hard real-time guarantees. Cache versions must be incremented with asset changes. See the [delivery contract and focused checks](proposals/offline-worker-checks.md).
+
+Background web push is not implemented. Daily alerts while the app is closed are delegated to a recurring local-time calendar event with an alarm. Browser reminders run only while the app is open and permission is granted.
 
 ## Course maintenance
 

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "scope": "Parola corrected oversized-body VM case only",
+  "runtime": "Node v26.8.2",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-timeout=10000",
+    "--test-name-pattern=^response bodies above one MiB are cancelled and never cached or partially delivered$",
+    "tests/service-worker.test.mjs"
+  ],
+  "inputsBefore": [
+    {
+      "path": "public/sw.js",
+      "bytes": 6307,
+      "sha256": "e0ad2a9d057b9dc06740f51bc198abd1e615d282fac837feb74095fe3b3dea34"
+    },
+    {
+      "path": "tests/service-worker.test.mjs",
+      "bytes": 19844,
+      "sha256": "c558a9e40c412c9d629de2edaa62452729427f7c99c266ad4805946f8ef29f86"
+    }
+  ],
+  "inputsAfter": [
+    {
+      "path": "public/sw.js",
+      "bytes": 6307,
+      "sha256": "e0ad2a9d057b9dc06740f51bc198abd1e615d282fac837feb74095fe3b3dea34"
+    },
+    {
+      "path": "tests/service-worker.test.mjs",
+      "bytes": 19844,
+      "sha256": "c558a9e40c412c9d629de2edaa62452729427f7c99c266ad4805946f8ef29f86"
+    }
+  ],
+  "completed": true,
+  "exitCode": 0,
+  "combinedToolOutput": "✔ response bodies above one MiB are cancelled and never cached or partially delivered (57.517583ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 155.048458\n",
+  "counts": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "carry": {
+    "receipt": "worker-unit-attempt-1.json",
+    "receiptSHA256": "516bdf912b45dfc4de020ae16c70e8effacf08fd7e18ff7a9c101e1344875cef",
+    "passedCases": 18,
+    "sourceWorkerUnchanged": true,
+    "oldTestSHA256": "ef49ed259bac741e54ff89388810295923281ebdb7a8abeebf8c4c0d18dfded7",
+    "newTestSHA256": "c558a9e40c412c9d629de2edaa62452729427f7c99c266ad4805946f8ef29f86",
+    "oldSpy": "  let cancelled = 0; const cancel = original.body.cancel.bind(original.body);\n  original.body.cancel = reason => { cancelled++; return cancel(reason); };",
+    "newSpy": "  let cancelled = 0; const clone = original.clone.bind(original);\n  original.clone = () => {\n    const previousBody = original.body, copy = clone();\n    assert.notEqual(original.body, previousBody, 'native clone must replace the original tee branch');\n    const cancel = original.body.cancel.bind(original.body);\n    original.body.cancel = reason => { cancelled++; return cancel(reason); };\n    return copy;\n  };",
+    "limit": "Only the failed fixture's observation point changed. Reversing the exact spy delta reproduces the old whole-file hash. No single nineteen-pass invocation occurred."
+  },
+  "proofLimits": [
+    "VM executes actual service-worker source with authored network/cache/timer doubles and native Node Fetch/Streams.",
+    "No browser, real storage, network, learning-suite or install/build proof from these VM checks."
+  ]
+}

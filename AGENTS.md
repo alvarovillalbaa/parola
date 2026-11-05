@@ -4,6 +4,18 @@ A personal, offline-capable language practice app. Scope: vocabulary and grammat
 
 ## Working here
 
+- Standing owner approval ("approve everything", "you choose", "keep going",
+  "do all the work") covers the focused offline-worker repair, its nineteen
+  new VM cases, three authored browser cases and temporary public CI capped
+  at twenty minutes per scoped attempt. See
+  `docs/proposals/offline-worker-checks.md`; do not repeat the old approval
+  question for that scope. No account, paid plan or notification enrollment.
+- Five pre-existing dirty/untracked files are excluded from this repair:
+  `.gitignore`, `README.md`, `docs/acceptance.md`,
+  `.github/workflows/hosted-browser.yml`, `tests/hosted.spec.mjs`.
+  Preserve their bytes and stage only explicitly owned paths. Never claim
+  the native checkout is globally clean while these changes remain.
+
 - Preserve user progress and existing work.
 - This is a dependency-free static ES module application in `public/`, published on Vercel. Do not add a framework or dependencies without a concrete need.
 - Use `apply_patch` for source changes.
