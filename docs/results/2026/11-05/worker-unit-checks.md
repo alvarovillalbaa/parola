@@ -34,5 +34,6 @@ ownership, pass-through and unchanged notification-click behavior.
 
 These VM results prove neither real storage/networking nor browser lifecycle,
 offline reload or physical-device behavior. The separate three-case
-[browser scope](../../../proposals/offline-worker-checks.md) remains unrun.
+[browser result](offline-worker-checks.md) now records its own accepted
+public/loopback/native-offline observations.
 No local install, build, server, browser, database, account or model action.

@@ -4,6 +4,12 @@ A personal, offline-capable language practice app. Scope: vocabulary and grammat
 
 ## Working here
 
+- Accepted worker repair: `docs/results/2026/11-05/offline-worker-checks.md`.
+  Three native-worker runtime cases passed; nineteen separate VM identities
+  have18+1 evidence with the failed spy retained. Do not repeat these closed
+  scopes without changed inputs or a concrete concern. Keep public, loopback,
+  VM and physical-device proof distinct.
+
 - Standing owner approval ("approve everything", "you choose", "keep going",
   "do all the work") covers the focused offline-worker repair, its nineteen
   new VM cases, three authored browser cases and temporary public CI capped

@@ -1,5 +1,11 @@
 # Offline-worker delivery repair and focused checks
 
+Current status: the [accepted result](../results/2026/11-05/offline-worker-checks.md)
+owns the actual runtime observations and source/cleanup boundaries. The
+authored scope below is preserved historical context, not a new execution
+request. The tracked temporary workflow is retired; the older untracked
+manual hosted workflow remains untouched.
+
 5 November 2026. The owner’s standing “approve everything”, “you choose”,
 “keep going” and “do all the work” covers this scoped repair, checks,
 temporary public CI and source/Vercel publication. No paid plan, new account,
