@@ -1,0 +1,38 @@
+name: Temporary Parola offline-worker checks
+on:
+  push:
+    branches: [qa/parola-offline-20261105]
+permissions:
+  contents: read
+concurrency:
+  group: parola-offline-20261105
+  cancel-in-progress: false
+jobs:
+  offline:
+    if: github.event_name == 'push' && github.repository == 'alvarovillalbaa/parola' && github.event.repository.private == false && github.ref == 'refs/heads/qa/parola-offline-20261105'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CI: 'true'
+      SOURCE_COMMIT: 8367b6140a6285109b6ef98a9ecf696b67f9a40e
+      PAROLA_WORKER_EXPECTED_DEPLOYMENT: dpl_ACBxh63LC8EkU7gMCPhuSZXGBoB4
+      PAROLA_WORKER_PUBLIC_REPOSITORY: ${{ github.event.repository.private == false }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ env.SOURCE_COMMIT }}
+          persist-credentials: false
+          clean: false
+          fetch-depth: 1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 24.21.0
+          package-manager-cache: false
+      - name: Run only the pinned Parola worker packet
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$SOURCE_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$PAROLA_WORKER_EXPECTED_DEPLOYMENT" =~ ^dpl_[A-Za-z0-9]+$ ]]
+          [[ "$(git rev-parse HEAD)" == "$SOURCE_COMMIT" ]]
+          node scripts/run-worker-offline.mjs --source-commit "$SOURCE_COMMIT"
