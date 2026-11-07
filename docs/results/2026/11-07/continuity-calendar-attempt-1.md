@@ -68,3 +68,28 @@ natural overnight/DST, calendar import/delivery, notification, physical-device,
 or full mobile/product claim. Closed course/VM/worker scopes were not rerun.
 No local browser/server/install/build, account, model, retry, source fix,
 commit or branch retirement was performed by this audit.
+
+## Publication follow-up
+
+The original 4,460-byte audit above is preserved (SHA-256
+`eb0d91becc2cb447dae3ecc55e924354b2ec13f7c01e71523fe4ca77ede08346`).
+Receipt commit `ccead56` and two status-document updates were published to main
+and the candidate branch at `708285afc4ffcd93918aa2763d92b197ea8a7551`.
+All ten app files, package configuration, browser driver and controller remain
+exact to the checked source; 43 of its 45 files are unchanged. Only AGENTS and
+the scope proposal changed, with the two receipt files added separately.
+
+The owned QA branch is retired at
+`421dbed726d5f7b4ea697a69469cda5ad9e95bcc`, with parents activation and published
+main. Its tree `d30d5d3c789159c081883abd0f3caf370d80bb72` exactly matches that
+published main and contains no tracked active workflow. Atomic publication and
+fresh remote-ref readback succeeded at `07:46:48 UTC`. The older untracked
+hosted workflow and all five pre-existing dirty paths remain preserved; the
+native checkout is intentionally not globally clean.
+
+Root's filtered Vercel list and fresh deployment detail at `07:47:05 UTC`
+returned `dpl_FPLfSwGUeeCeNVUcEYEkF8KnHwgG` READY, target production, exact
+source `708285afc4ffcd93918aa2763d92b197ea8a7551`, with the canonical
+`parola-eta.vercel.app` alias. This is separate packaging/alias metadata, not a
+second browser run. The two accepted cases retain their original source and
+public runtime observations; no closed cases were repeated for publication.
