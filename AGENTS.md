@@ -4,12 +4,14 @@ A personal, offline-capable language practice app. Scope: vocabulary and grammat
 
 ## Working here
 
-- Cross-day continuity and native calendar-file download checks are scoped in
-  `docs/proposals/continuity-calendar-checks.md`. Standing owner approval covers
-  these two new identities and one temporary public CI attempt capped at twenty
-  minutes. Preserve the same five existing dirty paths below; no old accepted
-  course/worker cases, local browser install, notification prompt or calendar
-  import is part of this scope. Source preparation is not runtime evidence.
+- Accepted continuity/calendar checks:
+  `docs/results/2026/11-07/continuity-calendar-attempt-1.md`. Both new identities
+  passed their first invocation; do not repeat this closed scope without changed
+  inputs or a concrete concern. The proposal retains its historical preparation
+  scope in `docs/proposals/continuity-calendar-checks.md`. Preserve the same five
+  existing dirty paths below. Controlled browser dates and actual file bytes do
+  not establish natural overnight/DST behavior, calendar import, OS notifications
+  or physical-device delivery. Old course/worker cases remain separate evidence.
 
 - Accepted worker repair: `docs/results/2026/11-05/offline-worker-checks.md`.
   Three native-worker runtime cases passed; nineteen separate VM identities

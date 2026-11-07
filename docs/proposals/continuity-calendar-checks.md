@@ -1,4 +1,16 @@
-# Cross-day continuity and calendar downloads — preparation
+# Cross-day continuity and calendar downloads — focused checks completed
+
+The [first invocation passed](../results/2026/11-07/continuity-calendar-attempt-1.md)
+at source `77e68d9e6e593730a0341c19e0ed9e989d081073`, against the canonical public
+app whose runtime bytes match `0bb8e46585e9fb9a679ceacd0b7611c5349ff001`.
+C01 earned five reviews, preserved the prior goal/history across controlled
+browser dates, graded a due item to a three-day interval and retained progress
+after reload. C02 captured two original 694-byte calendar downloads with distinct
+floating dates and a stable UID. All 34 command exits, 22 asset-response checks,
+five source guards and owned cleanup passed. This is controlled-date browser and
+file-download proof, not calendar-client delivery, OS notifications, elapsed
+overnight time, DST or full-product acceptance. The preparation below is retained
+as historical scope; actual observations and limits belong to the result.
 
 7 November 2026. Two new browser identities address open observations in the
 [26 October receipt](../results/2026/10-26/browser-acceptance.md). They do not
