@@ -1,0 +1,83 @@
+{
+  "app": "parola",
+  "exportedAt": "2026-11-14T19:18:11.755Z",
+  "state": {
+    "version": 1,
+    "settings": {
+      "language": "fr",
+      "sources": {
+        "fr": "es",
+        "de": "en",
+        "it": "es",
+        "pt": "es"
+      },
+      "dailyGoal": 15,
+      "reminderTime": "19:00",
+      "browserReminders": false
+    },
+    "progress": {
+      "fr-v-01": {
+        "due": 1793620800000,
+        "interval": 1,
+        "repetitions": 1,
+        "lapses": 0,
+        "reviews": 1,
+        "correct": 1,
+        "lastReviewed": 1793534400000
+      },
+      "custom-backup-fixture": {
+        "due": 1793707200000,
+        "interval": 1,
+        "repetitions": 1,
+        "lapses": 0,
+        "reviews": 1,
+        "correct": 1,
+        "lastReviewed": 1793620800000
+      }
+    },
+    "days": {
+      "2026-11-01": {
+        "cards": [
+          "fr-v-01"
+        ],
+        "reviews": 1,
+        "correct": 1,
+        "goal": 15
+      },
+      "2026-11-02": {
+        "cards": [
+          "custom-backup-fixture"
+        ],
+        "reviews": 1,
+        "correct": 1,
+        "goal": 15
+      }
+    },
+    "customCards": [
+      {
+        "id": "custom-backup-fixture",
+        "language": "fr",
+        "kind": "vocabulary",
+        "topic": "Authored backup",
+        "level": "A1",
+        "cue": {
+          "es": "La prueba <b>Parola backup</b>",
+          "en": "The <b>Parola backup</b> proof"
+        },
+        "answers": [
+          "la preuve",
+          "une preuve"
+        ],
+        "note": {
+          "es": "<img src=x onerror=\"window.parolaInjected=true\">",
+          "en": "<script>window.parolaInjected=true</script>"
+        },
+        "example": {
+          "target": "",
+          "es": "",
+          "en": ""
+        }
+      }
+    ]
+  }
+}

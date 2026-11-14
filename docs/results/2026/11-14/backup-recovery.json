@@ -1,0 +1,328 @@
+{
+  "qualifiedSource": "365c96cf11abd094b9f351d12be15dd70535642c",
+  "run": 43631286776,
+  "url": "https://github.com/alvarovillalbaa/parola/actions/runs/43631286776",
+  "startedAt": "2026-11-14T19:17:33Z",
+  "completedAt": "2026-11-14T19:18:26Z",
+  "receipt": {
+    "source": "365c96cf11abd094b9f351d12be15dd70535642c",
+    "commands": [
+      {
+        "name": "driver",
+        "exitCode": 0,
+        "stdoutSha256": "4aaef3acc3c4b16766abf61c4f4aa2d3bd413e2fe822d3edd6cfa9d7e7334efa",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "browser",
+        "exitCode": 0,
+        "stdoutSha256": "f2066dcaaa34dab05e10b3eb87a5f568b616f21544387e4ed009e0dce5265801",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "cleanup": true,
+    "passed": true,
+    "remainingOwnedProcesses": []
+  },
+  "browser": {
+    "source": "365c96cf11abd094b9f351d12be15dd70535642c",
+    "origin": "https://parola-eta.vercel.app",
+    "fixtureKind": "authored learner history",
+    "status": "passed",
+    "cases": [
+      {
+        "id": "B01",
+        "profile": "desktop",
+        "passed": true,
+        "observations": {
+          "backupStateExact": true,
+          "beforeConfirmationPreserved": true,
+          "restoredAfterReload": true,
+          "escapedCustomText": true,
+          "progressRecords": 2
+        }
+      },
+      {
+        "id": "B02",
+        "profile": "narrow",
+        "passed": true,
+        "observations": {
+          "escapePreservedState": true,
+          "closePreservedState": true,
+          "reloadPreservedState": true
+        }
+      },
+      {
+        "id": "B03",
+        "profile": "desktop",
+        "passed": true,
+        "observations": {
+          "refused": [
+            "malformed.json",
+            "future.json",
+            "inconsistent.json"
+          ],
+          "persistedStateUnchanged": true
+        }
+      },
+      {
+        "id": "B04",
+        "profile": "narrow",
+        "passed": true,
+        "observations": {
+          "originalDownloadExact": true,
+          "unreadableOriginalPreserved": true,
+          "confirmedValidRestoreRecovered": true
+        }
+      }
+    ],
+    "downloads": [
+      {
+        "name": "B01-backup.json",
+        "suggestedFilename": "parola-2026-11-14.json",
+        "bytes": 1780,
+        "sha256": "62e1cdf07007f08fa002fa1c3a0f8c25250116bbc29ea85c3d912e48ee779f3b",
+        "originalRemoved": true
+      },
+      {
+        "name": "B04-original-recovery.json",
+        "suggestedFilename": "parola-original-recovery.json",
+        "bytes": 43,
+        "sha256": "5dda154e8deb4710f560c5d16c8aa469b029179d84c9b938f3c7bad053f75e8f",
+        "originalRemoved": true
+      }
+    ],
+    "pageErrors": [],
+    "contextsClosed": 4,
+    "contextsCreated": 4,
+    "oldScopesRepeated": false
+  },
+  "servedAssetsBefore": [
+    {
+      "path": "/index.html",
+      "bytes": 1189,
+      "sha256": "65e58fb6b1940d2dc5aab5cfaa1d3ba3896a65b969acc1c1f21b667c8731bc7a"
+    },
+    {
+      "path": "/app.mjs",
+      "bytes": 37283,
+      "sha256": "1146087cddde0b62c07ec5f98aae2b6f4ac118cad35f9f3e2739b1c1884a18b6"
+    },
+    {
+      "path": "/engine.mjs",
+      "bytes": 14060,
+      "sha256": "abcf0a138be379ee4d1d3dda4d5b4ce8b40fb05811085140ba0a3e52a454616a"
+    },
+    {
+      "path": "/data.mjs",
+      "bytes": 64822,
+      "sha256": "57239654dd5e6e5c99480a2bbd4d1150d772303978b84f68897012d7500af3ed"
+    },
+    {
+      "path": "/reminders.mjs",
+      "bytes": 9399,
+      "sha256": "76ff935b636a7c91ca6fc3630e06b84aec5db0d53bc880cbe2b662cffc119199"
+    },
+    {
+      "path": "/styles.css",
+      "bytes": 29860,
+      "sha256": "9b933544db6979e95fee8bc0792e600c53b9829069bc8128d81d4112f5a16e1c"
+    },
+    {
+      "path": "/theme.css",
+      "bytes": 159,
+      "sha256": "6e4cf93afd27d6c22dddd02a29a137dcf809319676b7ff20c45e6fd14daa1509"
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "bytes": 435,
+      "sha256": "9d43689445dae58f7acf2fb6bc9c0201868aba2ff3d4a7867423377903d7bc71"
+    },
+    {
+      "path": "/icon.svg",
+      "bytes": 349,
+      "sha256": "eed6842e3194f92d3adddc00d32f803631a37fd641ec2e73648ca81cc2c83347"
+    },
+    {
+      "path": "/sw.js",
+      "bytes": 6307,
+      "sha256": "e0ad2a9d057b9dc06740f51bc198abd1e615d282fac837feb74095fe3b3dea34"
+    }
+  ],
+  "servedAssetsAfter": [
+    {
+      "path": "/index.html",
+      "bytes": 1189,
+      "sha256": "65e58fb6b1940d2dc5aab5cfaa1d3ba3896a65b969acc1c1f21b667c8731bc7a"
+    },
+    {
+      "path": "/app.mjs",
+      "bytes": 37283,
+      "sha256": "1146087cddde0b62c07ec5f98aae2b6f4ac118cad35f9f3e2739b1c1884a18b6"
+    },
+    {
+      "path": "/engine.mjs",
+      "bytes": 14060,
+      "sha256": "abcf0a138be379ee4d1d3dda4d5b4ce8b40fb05811085140ba0a3e52a454616a"
+    },
+    {
+      "path": "/data.mjs",
+      "bytes": 64822,
+      "sha256": "57239654dd5e6e5c99480a2bbd4d1150d772303978b84f68897012d7500af3ed"
+    },
+    {
+      "path": "/reminders.mjs",
+      "bytes": 9399,
+      "sha256": "76ff935b636a7c91ca6fc3630e06b84aec5db0d53bc880cbe2b662cffc119199"
+    },
+    {
+      "path": "/styles.css",
+      "bytes": 29860,
+      "sha256": "9b933544db6979e95fee8bc0792e600c53b9829069bc8128d81d4112f5a16e1c"
+    },
+    {
+      "path": "/theme.css",
+      "bytes": 159,
+      "sha256": "6e4cf93afd27d6c22dddd02a29a137dcf809319676b7ff20c45e6fd14daa1509"
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "bytes": 435,
+      "sha256": "9d43689445dae58f7acf2fb6bc9c0201868aba2ff3d4a7867423377903d7bc71"
+    },
+    {
+      "path": "/icon.svg",
+      "bytes": 349,
+      "sha256": "eed6842e3194f92d3adddc00d32f803631a37fd641ec2e73648ca81cc2c83347"
+    },
+    {
+      "path": "/sw.js",
+      "bytes": 6307,
+      "sha256": "e0ad2a9d057b9dc06740f51bc198abd1e615d282fac837feb74095fe3b3dea34"
+    }
+  ],
+  "sourceManifests": {
+    "source-before.json": {
+      "bytes": 7939,
+      "sha256": "900d59a2f72068197834eefc43f4a5c132e2a00271c08d201d4fe04bffd4bf06",
+      "files": 51
+    },
+    "source-after.json": {
+      "bytes": 7939,
+      "sha256": "900d59a2f72068197834eefc43f4a5c132e2a00271c08d201d4fe04bffd4bf06",
+      "files": 51
+    }
+  },
+  "streams": [
+    {
+      "command": "driver",
+      "stream": "stdout",
+      "bytes": 24,
+      "sha256": "4aaef3acc3c4b16766abf61c4f4aa2d3bd413e2fe822d3edd6cfa9d7e7334efa",
+      "utf8": "\nadded 2 packages in 1s\n"
+    },
+    {
+      "command": "driver",
+      "stream": "stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8": ""
+    },
+    {
+      "command": "browser",
+      "stream": "stdout",
+      "bytes": 157,
+      "sha256": "f2066dcaaa34dab05e10b3eb87a5f568b616f21544387e4ed009e0dce5265801",
+      "utf8": "{\"status\":\"passed\",\"cases\":[{\"id\":\"B01\",\"passed\":true},{\"id\":\"B02\",\"passed\":true},{\"id\":\"B03\",\"passed\":true},{\"id\":\"B04\",\"passed\":true}],\"contextsClosed\":4}\n"
+    },
+    {
+      "command": "browser",
+      "stream": "stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8": ""
+    }
+  ],
+  "retainedFiles": [
+    {
+      "path": "backup-recovery/B01-desktop.png",
+      "bytes": 77265,
+      "sha256": "f84febaef3dd67d1d1d1b728befd5023f0c0cd3e0c169f184bbc54d6f71828dc"
+    },
+    {
+      "path": "backup-recovery/B02-narrow.png",
+      "bytes": 128001,
+      "sha256": "a52910991bb730affb9bef22425cc95d33e512bcad881b84f4f766dd7c7bc0e9"
+    },
+    {
+      "path": "backup-recovery/B03-desktop.png",
+      "bytes": 146101,
+      "sha256": "ad51aec2fd062965284af0ea230e4657682520b6b0d391d5473d6c584b44fb80"
+    },
+    {
+      "path": "backup-recovery/B04-narrow.png",
+      "bytes": 79259,
+      "sha256": "f2d0d4b9c1ba88ed48edbe5357c1e0a80edd504372bdc643a784e4c0860bcd3f"
+    },
+    {
+      "path": "backup-recovery/B01-backup.json",
+      "bytes": 1780,
+      "sha256": "62e1cdf07007f08fa002fa1c3a0f8c25250116bbc29ea85c3d912e48ee779f3b"
+    },
+    {
+      "path": "backup-recovery/B04-original-recovery.json",
+      "bytes": 43,
+      "sha256": "5dda154e8deb4710f560c5d16c8aa469b029179d84c9b938f3c7bad053f75e8f"
+    }
+  ],
+  "screenshotsInspected": [
+    "backup-recovery/B01-desktop.png",
+    "backup-recovery/B02-narrow.png",
+    "backup-recovery/B03-desktop.png",
+    "backup-recovery/B04-narrow.png"
+  ],
+  "nativePreservation": {
+    "head": "b0362d306a695368ab42ed50a886d0999b5ea9d4",
+    "status": " M .gitignore\n M README.md\n M docs/acceptance.md\n?? .github/\n?? tests/hosted.spec.mjs\n",
+    "preserve": [
+      {
+        "path": ".gitignore",
+        "bytes": 60,
+        "sha256": "f9403f1d2f4b9bed8ebfd3b6f264d11637a57e441a1b507c9d113fe06688f332"
+      },
+      {
+        "path": "README.md",
+        "bytes": 4243,
+        "sha256": "b0672fc64fee59cd312574a5aea68a0abdb1fdc8ebb2697867720e76b421705e"
+      },
+      {
+        "path": "docs/acceptance.md",
+        "bytes": 5181,
+        "sha256": "d6f160789f553499b1f30df871cc9f9df235ad60007438d5ffd8a91b9925cf38"
+      },
+      {
+        "path": ".github/workflows/hosted-browser.yml",
+        "bytes": 1415,
+        "sha256": "3f619ac99a367f15b0a9aece332b7eaf714030994627a4042d2512eaf5babc24"
+      },
+      {
+        "path": "tests/hosted.spec.mjs",
+        "bytes": 15634,
+        "sha256": "080ffa55faf23005f506d95e9658be1899005607b5fa1fde6983380a01232365"
+      }
+    ]
+  },
+  "workflow": {
+    "id": 418567367,
+    "state": "disabled_manually",
+    "fileRemoved": true
+  },
+  "proofLimits": [
+    "Author-created learner history is seeded setup, not newly earned or cross-device production data.",
+    "Four native public browser UI cases, two actual downloads and four inspected screenshots; no notification/calendar action.",
+    "Desktop/narrow Linux Chrome does not establish physical devices, natural overnight, OS alert delivery or phone installation.",
+    "Closed learning, offline-worker, VM, and continuity/calendar scopes were not replayed.",
+    "Extracted command/download digests and before/after guards verified. Artifact ZIP digest not compared.",
+    "Native checkout remains dirty at its original HEAD with all five pre-existing files byte-exact."
+  ]
+}

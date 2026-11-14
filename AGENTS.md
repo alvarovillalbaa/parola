@@ -4,6 +4,14 @@ A personal, offline-capable language practice app. Scope: vocabulary and grammat
 
 ## Working here
 
+- Accepted public backup/recovery checks:
+  `docs/results/2026/11-14/backup-recovery.md`. All four identities passed their
+  first invocation at source365c96cf/run43631286776. Do not repeat that closed
+  scope without changed inputs or a concrete concern. History is authored setup;
+  actual UI downloads, confirmations, cancellation, refusal and recovery ran.
+  Keep the same five pre-existing dirty native paths below unchanged. This does
+  not establish physical-device, OS alert, cross-device sync or natural-day proof.
+
 - Accepted continuity/calendar checks:
   `docs/results/2026/11-07/continuity-calendar-attempt-1.md`. Both new identities
   passed their first invocation; do not repeat this closed scope without changed
