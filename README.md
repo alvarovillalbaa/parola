@@ -1,5 +1,9 @@
 # Parola
 
+<!-- project-family:start -->
+> **Project family:** [Web & Creative Apps](https://github.com/alvarovillalbaa#web-and-creative-apps) · **Area:** Learning
+<!-- project-family:end -->
+
 A little language, every day. A personal app for learning vocabulary and grammatical structures through active recall.
 
 [Open Parola](https://parola-eta.vercel.app) · [Source on GitHub](https://github.com/alvarovillalbaa/parola)
